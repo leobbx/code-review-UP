@@ -1,6 +1,8 @@
 
 const SPACE = ' ';
 const PLAYER = 'O';
+const ORIGIN_X = 0;
+const ORIGIN_Y = 0;
 
 export class Game {
   private _lastSymbol = SPACE;
@@ -45,15 +47,15 @@ export class Game {
 
   public Winner(): string {
     if (this.isFirstRowFull() && this.isFirstRowFullWithSameSymbol()) {
-      return this._board.TileAt(0, 0)!.Symbol;
+      return this._board.TileAt(ORIGIN_X, ORIGIN_Y)!.Symbol;
     }
 
     if (this.isSecondRowFull() && this.isSecondRowFullWithSameSymbol()) {
-      return this._board.TileAt(1, 0)!.Symbol;
+      return this._board.TileAt(1, ORIGIN_Y)!.Symbol;
     }
 
     if (this.isThirdRowFull() && this.isThirdRowFullWithSameSymbol()) {
-      return this._board.TileAt(2, 0)!.Symbol;
+      return this._board.TileAt(2, ORIGIN_Y)!.Symbol;
     }
 
     return SPACE;
@@ -61,22 +63,22 @@ export class Game {
 
   private isFirstRowFull() {
     return (
-      this._board.TileAt(0, 0)!.Symbol != SPACE &&
-      this._board.TileAt(0, 1)!.Symbol != SPACE &&
-      this._board.TileAt(0, 2)!.Symbol != SPACE
+      this._board.TileAt(ORIGIN_X, ORIGIN_Y)!.Symbol != SPACE &&
+      this._board.TileAt(ORIGIN_X, 1)!.Symbol != SPACE &&
+      this._board.TileAt(ORIGIN_X, 2)!.Symbol != SPACE
     );
   }
 
   private isFirstRowFullWithSameSymbol() {
     return (
-      this._board.TileAt(0, 0)!.Symbol == this._board.TileAt(0, 1)!.Symbol &&
-      this._board.TileAt(0, 2)!.Symbol == this._board.TileAt(0, 1)!.Symbol
+      this._board.TileAt(ORIGIN_X, ORIGIN_Y)!.Symbol == this._board.TileAt(ORIGIN_X, 1)!.Symbol &&
+      this._board.TileAt(ORIGIN_X, 2)!.Symbol == this._board.TileAt(ORIGIN_X, 1)!.Symbol
     );
   }
 
   private isSecondRowFull() {
     return (
-      this._board.TileAt(1, 0)!.Symbol != SPACE &&
+      this._board.TileAt(1, ORIGIN_Y)!.Symbol != SPACE &&
       this._board.TileAt(1, 1)!.Symbol != SPACE &&
       this._board.TileAt(1, 2)!.Symbol != SPACE
     );
@@ -84,14 +86,14 @@ export class Game {
 
   private isSecondRowFullWithSameSymbol() {
     return (
-      this._board.TileAt(1, 0)!.Symbol == this._board.TileAt(1, 1)!.Symbol &&
+      this._board.TileAt(1, ORIGIN_Y)!.Symbol == this._board.TileAt(1, 1)!.Symbol &&
       this._board.TileAt(1, 2)!.Symbol == this._board.TileAt(1, 1)!.Symbol
     );
   }
 
   private isThirdRowFull() {
     return (
-      this._board.TileAt(2, 0)!.Symbol != SPACE &&
+      this._board.TileAt(2, ORIGIN_Y)!.Symbol != SPACE &&
       this._board.TileAt(2, 1)!.Symbol != SPACE &&
       this._board.TileAt(2, 2)!.Symbol != SPACE
     );
@@ -99,7 +101,7 @@ export class Game {
 
   private isThirdRowFullWithSameSymbol() {
     return (
-      this._board.TileAt(2, 0)!.Symbol == this._board.TileAt(2, 1)!.Symbol &&
+      this._board.TileAt(2, ORIGIN_Y)!.Symbol == this._board.TileAt(2, 1)!.Symbol &&
       this._board.TileAt(2, 2)!.Symbol == this._board.TileAt(2, 1)!.Symbol
     );
   }
