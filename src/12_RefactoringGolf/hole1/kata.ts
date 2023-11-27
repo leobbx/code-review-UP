@@ -1,7 +1,7 @@
 
-const leBonNom = ' ';
+const SPACE = ' ';
 export class Game {
-  private _lastSymbol = leBonNom;
+  private _lastSymbol = SPACE;
   private _board: Board = new Board();
 
   public Play(symbol: string, x: number, y: number): void {
