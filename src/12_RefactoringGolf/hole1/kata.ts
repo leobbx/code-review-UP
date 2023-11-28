@@ -38,7 +38,7 @@ export class Game {
   }
 
   private validatePositionIsEmpty(x: number, y: number) {
-    if (this._board.TileAt(x, y).Symbol != emptyPlay) {
+    if (this._board.TileAt(x, y).isNotEmptySymbol()) {
       throw new Error('Invalid position');
     }
   }
@@ -69,25 +69,53 @@ export class Game {
 
   private isRowFull(row: number) {
     return (
-      this._board.TileAt(row, firstColumn)!.Symbol != emptyPlay &&
-      this._board.TileAt(row, secondColumn)!.Symbol != emptyPlay &&
-      this._board.TileAt(row, thirdColumn)!.Symbol != emptyPlay
+      this._board.TileAt(row, firstColumn).isNotEmptySymbol() &&
+      this._board.TileAt(row, secondColumn).isNotEmptySymbol() &&
+      this._board.TileAt(row, thirdColumn).isNotEmptySymbol()
     );
   }
 
   private isRowFullWithSameSymbol(row: number) {
     return (
-      this._board.TileAt(row, firstColumn)!.Symbol ==
-        this._board.TileAt(row, secondColumn)!.Symbol &&
-      this._board.TileAt(row, thirdColumn)!.Symbol == this._board.TileAt(row, secondColumn)!.Symbol
+      this._board.TileAt(row, firstColumn).hasSameSymbolAs(this._board.TileAt(row, secondColumn)) &&
+      this._board.TileAt(row, thirdColumn).hasSameSymbolAs(this._board.TileAt(row, secondColumn))
     );
   }
 }
 
-interface Tile {
-  X: number;
-  Y: number;
-  Symbol: string;
+class Tile {
+  private _X: number = 0;
+  private _Y: number = 0;
+  private _Symbol: string = emptyPlay;
+
+  constructor(x: number,y: number, symbol: string) {
+    this._X = x;
+    this._Y = y;
+    this._Symbol = symbol;
+  }
+  get X(): number {
+    return this._X;
+  }
+
+  get Y(): number {
+    return this._Y;
+  }
+
+  get Symbol(): string {
+    return this._Symbol;
+  }
+
+  set Symbol(value: string) {
+    this._Symbol = value;
+  }
+
+  hasSameSymbolAs(other: Tile) {
+    return this._Symbol === other._Symbol;
+  }
+
+  public isNotEmptySymbol(): boolean {
+    return this._Symbol != emptyPlay;
+  }
 }
 
 class Board {
@@ -96,7 +124,7 @@ class Board {
   constructor() {
     for (let i = firstRow; i <= thirdRow; i++) {
       for (let j = firstColumn; j <= thirdColumn; j++) {
-        const tile: Tile = { X: i, Y: j, Symbol: emptyPlay };
+        const tile: Tile = new Tile(i,j,emptyPlay);
         this._plays.push(tile);
       }
     }
