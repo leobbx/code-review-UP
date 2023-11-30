@@ -20,7 +20,7 @@ export class Game {
     this.validatePositionIsEmpty(x, y);
 
     this.updateLastPlayer(player);
-    this.updateBoard(player, x, y);
+    this.updateBoard(new Tile(x, y, player));
   }
 
   private validateFirstMove(player: string) {
@@ -47,8 +47,8 @@ export class Game {
     this._lastPlayer = player;
   }
 
-  private updateBoard(player: string, x: number, y: number) {
-    this._board.AddTileAt(new Tile(x, y, player));
+  private updateBoard(tile: Tile) {
+    this._board.AddTileAt(tile);
   }
 
   public Winner(): string {
@@ -124,8 +124,8 @@ class Board {
     return noPlayer;
   }
 
-  private hasSamePlayer(x: number, y: number, otherX: number, otherY: number) {
-    return this.TileAt(x, y)!.hasSamePlayerAs(this.TileAt(otherX, otherY)!);
+  private hasSamePlayer(tile: Tile, otherTile: Tile) {
+    return tile.hasSamePlayerAs(otherTile);
   }
 
   private playerAt(x: number, y: number) {
@@ -146,8 +146,8 @@ class Board {
 
   private isRowFullWithSamePlayer(row: number) {
     return (
-      this.hasSamePlayer(row, firstColumn, row, secondColumn) &&
-      this.hasSamePlayer(row, secondColumn, row, thirdColumn)
+      this.hasSamePlayer(this.TileAt(row, firstColumn), this.TileAt(row, secondColumn)) &&
+      this.hasSamePlayer(this.TileAt(row, secondColumn), this.TileAt(row, thirdColumn))
     );
   }
 }
