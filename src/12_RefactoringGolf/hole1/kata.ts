@@ -103,10 +103,10 @@ class Board {
     return this._plays.find((t: Tile) => t.hasSameCoordinatesAs(new Tile(x, y, notPlayed)))!;
   }
 
-  public AddTileAt(symbol: string, x: number, y: number): void {
+  public AddTileAt(player: string, x: number, y: number): void {
     this._plays
-      .find((t: Tile) => t.hasSameCoordinatesAs(new Tile(x, y, symbol)))!
-      .updatePlayer(symbol);
+      .find((t: Tile) => t.hasSameCoordinatesAs(new Tile(x, y, player)))!
+      .updatePlayer(player);
   }
 
   public findRowFullWithSamePlayer(): string {
