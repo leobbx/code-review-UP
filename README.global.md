@@ -1,5 +1,6 @@
-Fatime Ndiaye
-Léo Babaux
+Fatime Ndiaye  
+Léo Babaux  
+Groupe A
 
 # Refactoring Golf
 
